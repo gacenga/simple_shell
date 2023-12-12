@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+
+#define MAX_INPUT_SIZE 1024
+#define MAX_ARG_SIZE   64
+#define MAX_ARG_COUNT  16
+/**
+* display_prompt - displays #cisfun$
+*
+* Return:void
+*/
+void display_prompt(void)
+{
+printf("#cisfun$ ");
+fflush(stdout);
+}
+/**
+* main - simple shell
+*
+* Return:0 on success
+*/
+int main(void)
+{
+pid_t pid;
+int status;
+char input[MAX_INPUT_SIZE];
+char *args[MAX_ARG_COUNT];
+int arg_count = 0;
+char *token;
+while (1)
+{
+display_prompt();
+if (fgets(input, sizeof(input), stdin) == NULL)
+{
+printf("\n");
+break;
+}
+input[strcspn(input, "\n")] = '\0';
+token = strtok(input, " ");
+while (token != NULL && arg_count < MAX_ARG_COUNT) {
+args[arg_count++] = token;
+token = strtok(NULL, " ");
+}
+args[arg_count] = NULL;
+if (arg_count > 0)
+{
+pid = fork();
+if (pid == -1)
+{
+perror("fork");
+exit(EXIT_FAILURE);
+}
+if (pid == 0)
+{
+if (execvp(args[0], args) == -1)
+{
+perror("execvp");
+exit(EXIT_FAILURE);
+}
+}
+else
+{
+waitpid(pid, &status, 0);
+if (WIFEXITED(status) && WEXITSTATUS(status) == 127)
+{
+printf("%s: command not found\n", input);
+}
+}
+}
+}
+printf("Exiting shell.\n");
+return (0);
+}
