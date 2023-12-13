@@ -6,7 +6,7 @@
 /**
 * execute_command - execute command
 *
-* @argv:arguments
+* @args:arguments
 * Return:void
 */
 void execute_command(char *args[])
