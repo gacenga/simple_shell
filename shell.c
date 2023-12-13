@@ -7,8 +7,6 @@
 #include <sys/types.h>
 
 #define MAX_INPUT_SIZE 1024
-#define MAX_ARG_SIZE   64
-#define MAX_ARG_COUNT  16
 /**
 * main - simple shell
 *

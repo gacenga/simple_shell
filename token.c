@@ -1,13 +1,8 @@
 #include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <sys/types.h>
-
+#include <stdlib.h>
+#include <stdio.h>
 #define MAX_INPUT_SIZE 1024
-#define MAX_ARG_SIZE   64
 #define MAX_ARG_COUNT  16
 /**
 * strtokn - tokenise string
@@ -16,7 +11,7 @@
 */
 void strtokn(char *input)
 {
-
+int i;
 char *args[MAX_ARG_COUNT];
 int arg_count = 0;
 char **env;
@@ -27,7 +22,7 @@ input_copy[sizeof(input_copy) - 1] = '\0';
 token = strtok(input_copy, " ");
 while (token != NULL && arg_count < MAX_ARG_COUNT)
 {
-args[arg_count++] = token;
+args[arg_count++] = my_strdup(token);
 token = strtok(NULL, " ");
 }
 args[arg_count] = NULL;
@@ -35,6 +30,10 @@ if (arg_count > 0)
 {
 if (strcmp(args[0], "exit") == 0)
 {
+for (i = 0; i < arg_count; ++i)
+{
+free(args[i]);
+}
 exit(EXIT_SUCCESS);
 }
 else if (strcmp(args[0], "env") == 0)
@@ -49,6 +48,10 @@ env++;
 else
 {
 execute_command(args);
+}
+for (i = 0; i < arg_count; ++i)
+{
+free(args[i]);
 }
 }
 arg_count = 0;
