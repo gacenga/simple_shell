@@ -16,6 +16,7 @@
 */
 void strtokn(char *input)
 {
+
 char *args[MAX_ARG_COUNT];
 int arg_count = 0;
 char **env;
@@ -34,7 +35,6 @@ if (arg_count > 0)
 {
 if (strcmp(args[0], "exit") == 0)
 {
-printf("Exiting shell.\n");
 exit(EXIT_SUCCESS);
 }
 else if (strcmp(args[0], "env") == 0)

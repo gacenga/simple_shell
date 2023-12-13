@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+
+#define MAX_INPUT_SIZE 1024
+#define MAX_ARG_SIZE   64
+#define MAX_ARG_COUNT  16
+void strtokn(char *program_name[], char *command_name[])
+{
+    char input[MAX_INPUT_SIZE];
+    char *token;
+    int arg_count_program = 0;
+    int arg_count_command = 0;
+
+    if (fgets(input, sizeof(input), stdin) == NULL)
+    {
+        printf("\n");
+        exit(EXIT_SUCCESS);
+    }
+
+    input[strcspn(input, "\n")] = '\0'; // Remove newline character
+
+    token = strtok(input, " ");
+    while (token != NULL && (arg_count_program < MAX_ARG_COUNT || arg_count_command < MAX_ARG_COUNT))
+    {
+        if (arg_count_program == 0)
+        {
+            program_name[arg_count_program++] = token;
+        }
+        else
+        {
+            command_name[arg_count_command++] = token;
+        }
+        token = strtok(NULL, " ");
+    }
+
+    program_name[arg_count_program] = NULL;
+    command_name[arg_count_command] = NULL;
+}

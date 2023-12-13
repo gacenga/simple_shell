@@ -6,7 +6,7 @@
 /**
 * execute_command - execute command
 *
-* @args:arguments
+* @argv:arguments
 * Return:void
 */
 void execute_command(char *args[])
@@ -15,14 +15,14 @@ pid_t pid = fork();
 int status;
 if (pid == -1)
 {
-perror("fork");
+fprintf(stderr, "./hsh: %d: fork failed\n", __LINE__);
 exit(EXIT_FAILURE);
 }
 if (pid == 0)
 {
 if (execvp(args[0], args) == -1)
 {
-perror("execvp");
+fprintf(stderr, "./hsh: %d: %s: not found\n", __LINE__, args[0]);
 exit(EXIT_FAILURE);
 }
 }
