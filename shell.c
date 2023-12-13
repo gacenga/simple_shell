@@ -26,5 +26,5 @@ break;
 input[strcspn(input, "\n")] = '\0';
 strtokn(input);
 }
-return (0);
+return (1);
 }
