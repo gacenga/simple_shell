@@ -47,6 +47,28 @@ printf("%s\n", *env);
 env++;
 }
 }
+else if (strcmp(args[0], "setenv") == 0)
+{
+if (arg_count != 3)
+{
+fprintf(stderr, "Usage: setenv VARIABLE VALUE\n");
+}
+else
+{
+setenv_builtin(args);
+}
+}
+else if (strcmp(args[0], "unsetenv") == 0)
+{
+if (arg_count != 2)
+{
+fprintf(stderr, "Usage: unsetenv VARIABLE\n");
+}
+else
+{
+unsetenv_builtin(args);
+}
+}
 else
 {
 execute_command(args);
