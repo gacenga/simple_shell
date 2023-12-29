@@ -24,6 +24,10 @@ if (strtokn(input))
 exit(EXIT_SUCCESS);
 break;
 }
+else
+{
+return (2);
+}
 }
 return (0);
 }
