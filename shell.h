@@ -7,6 +7,7 @@ int strtokn(char *input);
 char *my_strdup(const char *str);
 int setenv_builtin(char *args[]);
 int unsetenv_builtin(char *args[]);
+int cd_builtin(char *args[]);
 
 extern char **environ;
 
