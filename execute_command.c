@@ -21,6 +21,7 @@ if (args[0] == NULL) {
         
         cd_builtin(args);
     } else
+
 {
 pid_t pid = fork();
 int status;
