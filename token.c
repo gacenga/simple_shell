@@ -34,6 +34,7 @@ for (i = 0; i < arg_count; ++i)
 {
 free(args[i]);
 }
+free(args);
 exit(EXIT_SUCCESS);
 }
 else if (strcmp(args[0], "env") == 0)
@@ -54,5 +55,6 @@ for (i = 0; i < arg_count; ++i)
 free(args[i]);
 }
 }
+free(args);
 arg_count = 0;
 }
