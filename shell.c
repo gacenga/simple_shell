@@ -15,16 +15,15 @@
 int main(void)
 {
 char input[MAX_INPUT_SIZE];
-while (1)
-{
 display_prompt();
-if (fgets(input, sizeof(input), stdin) == NULL)
+while (fgets(input, sizeof(input), stdin) != NULL)
 {
-printf("\n");
+input[strcspn(input, "\n")] = '\0';
+if (strtokn(input))
+{
+exit(EXIT_SUCCESS);
 break;
 }
-input[strcspn(input, "\n")] = '\0';
-strtokn(input);
 }
 return (0);
 }

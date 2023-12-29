@@ -7,9 +7,10 @@
 /**
 * strtokn - tokenise string
 * @input:input
+* @should_sxit:pointer
 * Return:void
 */
-void strtokn(char *input)
+int strtokn(char *input)
 {
 int i;
 char *args[MAX_ARG_COUNT];
@@ -33,8 +34,9 @@ if (strcmp(args[0], "exit") == 0)
 for (i = 0; i < arg_count; ++i)
 {
 free(args[i]);
+args[i] = NULL;
 }
-exit(EXIT_SUCCESS);
+return 1;
 }
 else if (strcmp(args[0], "env") == 0)
 {
@@ -49,10 +51,11 @@ else
 {
 execute_command(args);
 }
+}
 for (i = 0; i < arg_count; ++i)
 {
 free(args[i]);
+args[i] = NULL;
 }
-}
-arg_count = 0;
+return (0);
 }

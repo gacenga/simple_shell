@@ -3,7 +3,7 @@
 
 void display_prompt(void);
 void execute_command(char *args[]);
-void strtokn(char *input);
+int strtokn(char *input);
 char *my_strdup(const char *str);
 
 extern char **environ;
